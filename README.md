@@ -20,4 +20,4 @@
 
 **-create a demonstrative level for showing off mechanics (~2-3 weeks)**
 
-* In order to show off the mechanics, the level will need terrain of varying height to create playground for platforming mechanics. The level also needs enemies located in various locations, with some of them being in areas only reachable with magic.
+* In order to show off the mechanics, the level will need terrain of varying height to create playground for platforming mechanics. The level also needs enemies placed in various locations, with some of them being in areas only reachable with magic.
