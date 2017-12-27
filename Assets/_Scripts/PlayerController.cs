@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float maxSpeed;
     public float dashSpeed;
 
+
     private Vector3 direction = new Vector3(0f, 0f, 0f);
     private bool isMoving = false;
 
@@ -63,10 +64,11 @@ public class PlayerController : MonoBehaviour
     {
         //Dashing
 
-        if (Input.GetButtonDown("Dash") && isMoving)
+        if (Input.GetButtonDown("Dash") && isMoving && gameObject.GetComponent<PlayerEnergyBars>().currentEnergy >= 50)
         {
             rb.AddForce(direction * dashSpeed);
             Debug.Log("Dash!");
+            gameObject.GetComponent<PlayerEnergyBars>().currentEnergy -= 50;
         }
         
         //Jumping
