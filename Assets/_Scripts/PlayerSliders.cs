@@ -10,17 +10,26 @@ public class PlayerEnergyBars : MonoBehaviour
     public float regenerationRate = 0.5f;
     private float energyPercent;
 
+    public float startingHealth = 100;
+    public float currentHealth;
+    private float healthPercent;
+
     public Slider energyBar;
+    public Slider healthBar;
 
     void Start()
     {
         currentEnergy = startingEnergy;
         energyBar.value = 1.0f;
+
+        currentHealth = startingHealth;
+        healthBar.value = 1.0f;
     }
 	
     void Update()
     {
         energyBar.value = energyPercent;
+        healthBar.value = healthPercent;
     }
 
     void FixedUpdate()
@@ -31,6 +40,8 @@ public class PlayerEnergyBars : MonoBehaviour
             currentEnergy += regenerationRate;
         }
         energyPercent = currentEnergy / startingEnergy;
+
+        healthPercent = currentHealth / startingHealth;
         
     }
 
