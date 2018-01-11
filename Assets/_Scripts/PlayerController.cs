@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
 
     private Rigidbody rb;
+    private TrailRenderer trail;
 
     public bool grounded;
 
@@ -15,12 +16,13 @@ public class PlayerController : MonoBehaviour
     public float dashSpeed;
 
 
-    private Vector3 direction = new Vector3(0f, 0f, 0f);
+    public Vector3 direction = new Vector3(1f, 0f, 1f);
     private bool isMoving = false;
 
 	void Start ()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+        trail = gameObject.GetComponent<TrailRenderer>();
 	}
 	
 	void FixedUpdate ()
@@ -67,8 +69,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Dash") && isMoving && gameObject.GetComponent<PlayerEnergyBars>().currentEnergy >= 50)
         {
             rb.AddForce(direction * dashSpeed);
+            trail.enabled = true;
+
             Debug.Log("Dash!");
             gameObject.GetComponent<PlayerEnergyBars>().currentEnergy -= 50;
+
+            Invoke("TrailFade", 0.15f);
         }
         
         //Jumping
@@ -79,4 +85,10 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Jump!");
         }
     }
+
+    void TrailFade()
+    {
+        trail.enabled = false;
+    }
+
 }
