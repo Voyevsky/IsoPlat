@@ -7,12 +7,10 @@ public class HitboxBehavior : MonoBehaviour
 
     public float damage;
     private Collider collid;
-    //public bool isPossible = true;
 
     private float currentAngle = 45f;
 
     private Vector3 direction = Vector3.zero;
-    //private float startingAngle = 0f;
 
     void Start()
     {
@@ -37,17 +35,31 @@ public class HitboxBehavior : MonoBehaviour
 
             //Debug.Log(currentAngle);
 
-            collid.enabled = true;
-            
+            //if player is attacking, set to true
+            /*
+            if (GetComponentInParent<PlayerController>().)
+            {
+                collid.enabled = true;
+            }
+            */
+
+        }
+
+        if (true)
+        {
+
         }
 
     }
     void OnTriggerEnter(Collider col)
     {
-        if(col.isTrigger && col.CompareTag("Enemy"))
+        if(col.CompareTag("Enemy"))
         {
-            col.SendMessageUpwards("takeDamage", damage);
+            col.SendMessageUpwards("TakeDamage", damage);
         }
+
+        collid.enabled = false;
+
     }
 
 }

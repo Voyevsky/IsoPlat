@@ -7,15 +7,21 @@ public class PlayerEnergyBars : MonoBehaviour
 {
     public float startingEnergy = 100;
     public float currentEnergy;
-    public float regenerationRate = 0.5f;
+    public float energyRegenRate = 0.5f;
     private float energyPercent;
 
     public float startingHealth = 100;
     public float currentHealth;
     private float healthPercent;
 
+    public float startingMana = 100;
+    public float currentMana;
+    public float manaRegenRate = 0.3f;
+    private float manaPercent;
+
     public Slider energyBar;
     public Slider healthBar;
+    public Slider manaBar;
 
     void Start()
     {
@@ -24,25 +30,49 @@ public class PlayerEnergyBars : MonoBehaviour
 
         currentHealth = startingHealth;
         healthBar.value = 1.0f;
+
+        currentMana = startingMana;
+        manaBar.value = 1.0f;
     }
 	
     void Update()
     {
-        energyBar.value = energyPercent;
-        healthBar.value = healthPercent;
+        SlidersValueUpdate();
     }
 
     void FixedUpdate()
     {
-        //regenerating energy
-        if(currentEnergy < startingEnergy)
-        {
-            currentEnergy += regenerationRate;
-        }
-        energyPercent = currentEnergy / startingEnergy;
-
-        healthPercent = currentHealth / startingHealth;
-        
+        Regeneration();
+        SlidersPercentage();
     }
+
+    #region Functions
+
+    void Regeneration()
+    {
+        if (currentEnergy < startingEnergy)
+        {
+            currentEnergy += energyRegenRate;
+        }
+
+        if(currentMana < startingMana)
+        {
+            currentMana += manaRegenRate;
+        }
+    }
+    void SlidersPercentage()
+    {
+        energyPercent = currentEnergy / startingEnergy;
+        healthPercent = currentHealth / startingHealth;
+        manaPercent = currentMana / startingMana;
+    }
+
+    void SlidersValueUpdate()
+    {
+        energyBar.value = energyPercent;
+        healthBar.value = healthPercent;
+        manaBar.value = manaPercent;
+    }
+    #endregion
 
 }
