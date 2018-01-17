@@ -18,6 +18,8 @@ public class PlayerAttacks : MonoBehaviour
 
     private int spellId = 0;
 
+    //Spells' ID: 0 = fireball, 1 = pillar, 2 = AoE
+
     void Start()
     {
         basicAttackHitbox.enabled = false;
@@ -62,11 +64,14 @@ public class PlayerAttacks : MonoBehaviour
 
         if (Input.GetButtonDown("Magic"))
         {
-
+            CastSpell(spellId);
         }
+
+        SpellSelect();
 
     }
 
+    #region Attacks
     void NormalAttack()
     {
         basicAttackHitbox.enabled = true;
@@ -79,12 +84,77 @@ public class PlayerAttacks : MonoBehaviour
         isAttacking = true;
         gameObject.GetComponent<PlayerEnergyBars>().currentEnergy -= 70;
     }
+    #endregion
 
-    void Magic()
+    #region Magic
+
+    void SpellSelect()
+    {
+        if (Input.GetAxisRaw("DPadVer") > 0 || Input.GetButtonDown("SpellOne"))
+        {
+            spellId = 0;
+            Debug.Log("Selected: Fireball");
+        }
+        if (Input.GetAxisRaw("DPadHor") > 0 || Input.GetButtonDown("SpellThree"))
+        {
+            spellId = 1;
+            Debug.Log("Selected: Pillar");
+        }
+        if (Input.GetAxisRaw("DPadVer") < 0 || Input.GetButtonDown("SpellTwo"))
+        {
+            spellId = 2;
+            Debug.Log("Selected: AoE");
+        }
+        
+        if(Input.GetButtonDown("CycleSpells"))
+        {
+            spellId++;
+            if(spellId > 2)
+            {
+                spellId = 0;
+            }
+            Debug.Log(spellId);
+        }
+    }
+
+    void CastSpell(int id)
+    {
+        switch(id)
+        {
+            case 1:
+                Debug.Log("Pillar!");
+                break;
+            case 2:
+                Debug.Log("AoE!");
+                break;
+            default:
+                Fireball();
+                break; 
+        }
+    }
+
+    void Fireball()
+    {
+        if (gameObject.GetComponent<PlayerEnergyBars>().currentMana >= 20)
+        {
+            gameObject.GetComponent<PlayerEnergyBars>().currentMana -= 20;
+            Debug.Log("Fireball!");
+        }
+        
+    }
+
+    void Pillar()
     {
 
     }
-	
+
+    void AoE()
+    {
+
+    }
+
+    #endregion
+
     void Deactivate()
     {
         if (basicAttackHitbox.enabled)
