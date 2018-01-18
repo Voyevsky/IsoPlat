@@ -18,23 +18,23 @@ public class PlayerController : MonoBehaviour
 
     public Vector3 direction = new Vector3(1f, 0f, 1f);
     private bool isMoving = false;
+    [SerializeField] private GameObject characterSprite;
+    private Animator playerAnim;
+
+    private bool isLookingUp = false;
+    //public Vector3 currentPosition;
 
 	void Start ()
     {
         rb = gameObject.GetComponent<Rigidbody>();
         trail = gameObject.GetComponent<TrailRenderer>();
+        playerAnim = gameObject.GetComponentInChildren<Animator>();
 	}
 	
 	void FixedUpdate ()
     {
 
-        //Fake friction
-        Vector3 fakeFriction = rb.velocity;
-        fakeFriction.y = rb.velocity.y;
-        fakeFriction.z *= 0.5f;
-        fakeFriction.x *= 0.5f;
-
-        rb.velocity = fakeFriction;
+        FakeFriction(0.5f);
 
         //Basic movement
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -64,6 +64,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
+        SpriteDirection();
+
         //Dashing
 
         if (Input.GetButtonDown("Dash") && isMoving && gameObject.GetComponent<PlayerEnergyBars>().currentEnergy >= 50)
@@ -81,14 +84,51 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && grounded)
         {
             rb.AddForce(0, jumpForce, 0);
-            //grounded = false;
             Debug.Log("Jump!");
         }
     }
+    #region Movement functions
+    void FakeFriction(float speedReduction)
+    {
+        Vector3 fakeFriction = rb.velocity;
+        fakeFriction.y = rb.velocity.y;
+        fakeFriction.z *= speedReduction;
+        fakeFriction.x *= speedReduction;
 
+        rb.velocity = fakeFriction;
+    }
+    #endregion
+
+    #region Other functions
+    void SpriteDirection()
+    {
+        //flipping the sprite
+
+        if (Input.GetAxis("Horizontal") > 0)
+        {
+            characterSprite.transform.localScale = new Vector3(-1.5f, 1.5f, 1);
+        }
+
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            characterSprite.transform.localScale = new Vector3(1.5f, 1.5f, 1);
+        }
+
+        //using up-looking animations
+        playerAnim.SetBool("isLookingUp", isLookingUp);
+
+        if (Input.GetAxisRaw("Vertical") > 0)
+        {
+            isLookingUp = true;
+        }
+        if (Input.GetAxisRaw("Vertical") < 0)
+        {
+            isLookingUp = false;
+        }
+    }
     void TrailFade()
     {
         trail.enabled = false;
     }
-
+    #endregion
 }

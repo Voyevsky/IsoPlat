@@ -12,8 +12,8 @@ public class PlayerAttacks : MonoBehaviour
 
     public float specialDamage = 50;
 
-    private bool isAttacking = false;
-    private bool isPerformingSpecial = false;
+    public bool isAttacking = false;
+    public bool isPerformingSpecial = false;
     private float attackTimePassed = 0f;
 
     private int spellId = 0;
@@ -59,6 +59,7 @@ public class PlayerAttacks : MonoBehaviour
             {
                 attackTimePassed = 0f;
                 isAttacking = false;
+                isPerformingSpecial = false;
             }
         }
 
@@ -135,9 +136,9 @@ public class PlayerAttacks : MonoBehaviour
 
     void Fireball()
     {
-        if (gameObject.GetComponent<PlayerEnergyBars>().currentMana >= 20)
+        if (gameObject.GetComponent<PlayerEnergyBars>().currentMana >= 30.0f)
         {
-            gameObject.GetComponent<PlayerEnergyBars>().currentMana -= 20;
+            gameObject.GetComponent<PlayerEnergyBars>().currentMana -= 30.0f;
             Debug.Log("Fireball!");
         }
         
@@ -145,12 +146,20 @@ public class PlayerAttacks : MonoBehaviour
 
     void Pillar()
     {
-
+        if (gameObject.GetComponent<PlayerEnergyBars>().currentMana >= 30.0f)
+        {
+            gameObject.GetComponent<PlayerEnergyBars>().currentMana -= 30.0f;
+            Debug.Log("Pillar!");
+        }
     }
 
     void AoE()
     {
-
+        if (gameObject.GetComponent<PlayerEnergyBars>().currentMana >= 70.0f)
+        {
+            gameObject.GetComponent<PlayerEnergyBars>().currentMana -= 70.0f;
+            Debug.Log("AoE!");
+        }
     }
 
     #endregion

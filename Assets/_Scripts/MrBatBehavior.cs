@@ -8,7 +8,8 @@ public class MrBatBehavior : MonoBehaviour
     //:3
     // Z
     public GameObject sprite;
-    public float maxHealth = 30;
+    public float maxHealth = 30.0f;
+    public float movementSpeed = 100.0f;
     private float currentHealth;
     public bool alive = true;
 
@@ -16,19 +17,24 @@ public class MrBatBehavior : MonoBehaviour
 
     private Animator mrBatAnim;
     private Collider col;
+    private Vector3 startingPosition;
 
-
+    [SerializeField] private GameObject player;
     void Start()
     {
         currentHealth = maxHealth;
         mrBatAnim = gameObject.GetComponentInChildren<Animator>();
         col = GetComponent<Collider>();
+        startingPosition = transform.position;
     }
     void FixedUpdate()
     {
-
         FakeFriction();
-        
+
+        if (alive)
+        {
+            GoTowardsPoint(player.transform.position);
+        }
     }
 
     void Update()
@@ -43,6 +49,7 @@ public class MrBatBehavior : MonoBehaviour
 
     }
 
+    #region Functions
     void TakeDamage(float damage)
     {
         if (alive)
@@ -54,6 +61,11 @@ public class MrBatBehavior : MonoBehaviour
                 Death();
             }
         }
+    }
+
+    void GoTowardsPoint(Vector3 point)
+    {
+        mrBatRB.AddForce((point - transform.position).normalized * movementSpeed);
     }
 
     void Death()
@@ -72,4 +84,6 @@ public class MrBatBehavior : MonoBehaviour
 
         mrBatRB.velocity = fakeFriction;
     }
+
+    #endregion
 }
