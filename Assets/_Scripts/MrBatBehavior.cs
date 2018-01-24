@@ -11,6 +11,8 @@ public class MrBatBehavior : MonoBehaviour
     public float maxHealth = 30.0f;
     public float movementSpeed = 100.0f;
     private float currentHealth;
+    [SerializeField]private float attackCooldown = 0.33f;
+    private float attackTimePassed = 0.0f;
     public bool alive = true;
 
     public Rigidbody mrBatRB;
@@ -18,6 +20,8 @@ public class MrBatBehavior : MonoBehaviour
     private Animator mrBatAnim;
     private Collider col;
     private Vector3 startingPosition;
+
+    private int playerInteractionState = 1; // 0 - go to starting position, 1 - follow player, 2 - stop and shoot
 
     [SerializeField] private GameObject player;
     void Start()
@@ -33,7 +37,23 @@ public class MrBatBehavior : MonoBehaviour
 
         if (alive)
         {
-            GoTowardsPoint(player.transform.position);
+            if (playerInteractionState == 0)
+            {
+                GoTowardsPoint(startingPosition);
+            }
+
+            if (playerInteractionState == 1)
+            {
+                GoTowardsPoint(player.transform.position);
+            }
+
+            if (playerInteractionState == 2)
+            {
+                Shoot();
+            }
+
+            attackTimePassed -= Time.deltaTime;
+               
         }
     }
 
@@ -60,6 +80,20 @@ public class MrBatBehavior : MonoBehaviour
             {
                 Death();
             }
+        }
+    }
+
+    void ChangeState(int newState)
+    {
+        playerInteractionState = newState;
+    }
+
+    void Shoot()
+    {
+        if(attackTimePassed <= 0.0f)
+        {
+            Debug.Log("Pow!");
+            attackTimePassed = attackCooldown;
         }
     }
 

@@ -16,6 +16,8 @@ public class PlayerAttacks : MonoBehaviour
     public bool isPerformingSpecial = false;
     private float attackTimePassed = 0f;
 
+    [SerializeField] private GameObject fireball;
+
     private int spellId = 0;
 
     //Spells' ID: 0 = fireball, 1 = pillar, 2 = AoE
@@ -139,6 +141,10 @@ public class PlayerAttacks : MonoBehaviour
         if (gameObject.GetComponent<PlayerEnergyBars>().currentMana >= 30.0f)
         {
             gameObject.GetComponent<PlayerEnergyBars>().currentMana -= 30.0f;
+                
+            var boolet = Instantiate(fireball);
+            boolet.transform.position = transform.position;
+
             Debug.Log("Fireball!");
         }
         

@@ -28,7 +28,7 @@ public class HitboxBehavior : MonoBehaviour
     }
     void OnTriggerEnter(Collider col)
     {
-        if(col.CompareTag("Enemy"))
+        if(col.CompareTag("Enemy") || col.CompareTag("FlyingEnemy"))
         {
             col.SendMessageUpwards("TakeDamage", damage);
         }
