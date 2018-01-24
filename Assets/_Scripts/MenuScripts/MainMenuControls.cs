@@ -35,7 +35,6 @@ public class MainMenuControls : MonoBehaviour
         {
             ExitControls();
         }
-        
     }
 
     #region Functions
@@ -126,7 +125,6 @@ public class MainMenuControls : MonoBehaviour
         goBackFromControls.SetActive(true);
         howToMenu = true;
     }
-
     void BackToMainMenu()
     {
         menuSprite.SetActive(true);
@@ -138,5 +136,4 @@ public class MainMenuControls : MonoBehaviour
         howToMenu = false;
     }
     #endregion
-
 }
