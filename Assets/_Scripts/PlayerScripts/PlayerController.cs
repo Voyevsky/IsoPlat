@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnim;
 
     private bool isLookingUp = false;
+    public static bool isAlive = true;
     //public Vector3 currentPosition;
 
 	void Start ()
@@ -33,20 +34,43 @@ public class PlayerController : MonoBehaviour
 	
 	void FixedUpdate ()
     {
-
         FakeFriction(0.5f);
+        if (isAlive)
+        {
+            Movement();
+        }
+    }
 
-        //Basic movement
+    void Update()
+    {
+        if (isAlive)
+        {
+            SpriteDirection();
+            Dashing();
+            Jumping();
+            Animations();
+        }
+    }
+    #region Movement functions
+    void FakeFriction(float speedReduction)
+    {
+        Vector3 fakeFriction = rb.velocity;
+        fakeFriction.y = rb.velocity.y;
+        fakeFriction.z *= speedReduction;
+        fakeFriction.x *= speedReduction;
+
+        rb.velocity = fakeFriction;
+    }
+    void Movement()
+    {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        
 
         Vector3 movement = new Vector3(horizontal, 0f, vertical);
         movement = Quaternion.AngleAxis(-135, Vector3.up) * movement;
 
-        
         //Constant input
-        if(movement.magnitude > 0)
+        if (movement.magnitude > 0)
         {
             isMoving = true;
             movement = movement.normalized;
@@ -59,16 +83,9 @@ public class PlayerController : MonoBehaviour
         direction = movement.normalized;
 
         rb.AddForce(movement * movementSpeed);
-        
     }
-
-    void Update()
+    void Dashing()
     {
-
-        SpriteDirection();
-
-        //Dashing
-
         if (Input.GetButtonDown("Dash") && isMoving && gameObject.GetComponent<PlayerEnergyBars>().currentEnergy >= 50)
         {
             rb.AddForce(direction * dashSpeed);
@@ -79,23 +96,15 @@ public class PlayerController : MonoBehaviour
 
             Invoke("TrailFade", 0.15f);
         }
-        
-        //Jumping
+    }
+
+    void Jumping()
+    {
         if (Input.GetButtonDown("Jump") && grounded)
         {
             rb.AddForce(0, jumpForce, 0);
             Debug.Log("Jump!");
         }
-    }
-    #region Movement functions
-    void FakeFriction(float speedReduction)
-    {
-        Vector3 fakeFriction = rb.velocity;
-        fakeFriction.y = rb.velocity.y;
-        fakeFriction.z *= speedReduction;
-        fakeFriction.x *= speedReduction;
-
-        rb.velocity = fakeFriction;
     }
     #endregion
 
@@ -117,6 +126,7 @@ public class PlayerController : MonoBehaviour
         //using up-looking animations
         playerAnim.SetBool("isLookingUp", isLookingUp);
 
+
         if (Input.GetAxisRaw("Vertical") > 0)
         {
             isLookingUp = true;
@@ -125,6 +135,11 @@ public class PlayerController : MonoBehaviour
         {
             isLookingUp = false;
         }
+    }
+
+    void Animations()
+    {
+        playerAnim.SetBool("isMoving", isMoving);
     }
     void TrailFade()
     {

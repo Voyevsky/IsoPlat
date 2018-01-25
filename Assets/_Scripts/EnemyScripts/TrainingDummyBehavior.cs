@@ -8,12 +8,22 @@ public class TrainingDummyBehavior : MonoBehaviour
     private float currentHealth;
 
     public bool alive = true;
+    private Animator dummyAnim;
+
+    private Collider dummyCol;
+    private Rigidbody dummyRB;
 
     void Start()
     {
         currentHealth = maxHealth;
+        dummyAnim = gameObject.GetComponentInChildren<Animator>();
+        dummyCol = gameObject.GetComponent<Collider>();
+        dummyRB = gameObject.GetComponent<Rigidbody>();
     }
-
+    void Update()
+    {
+        dummyAnim.SetBool("isAlive", alive);
+    }
     public void TakeDamage(float damage)
     {
 
@@ -33,6 +43,8 @@ public class TrainingDummyBehavior : MonoBehaviour
     {
         Debug.Log("Dead. Not big suprise.");
         alive = false;
+        dummyCol.enabled = false;
+        dummyRB.isKinematic = true;
     }
 
 }

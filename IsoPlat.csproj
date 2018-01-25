@@ -234,18 +234,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\_Scripts\EnemyStateChanger.cs" />
-    <Compile Include="Assets\_Scripts\GroundCheck.cs" />
-    <Compile Include="Assets\_Scripts\HitboxBehavior.cs" />
+    <Compile Include="Assets\_Scripts\EnemyScripts\EnemyStateChanger.cs" />
+    <Compile Include="Assets\_Scripts\EnemyScripts\GuardArea.cs" />
+    <Compile Include="Assets\_Scripts\EnemyScripts\GuardAreaExit.cs" />
+    <Compile Include="Assets\_Scripts\EnemyScripts\MrBatBehavior.cs" />
+    <Compile Include="Assets\_Scripts\EnemyScripts\TrainingDummyBehavior.cs" />
     <Compile Include="Assets\_Scripts\MenuScripts\HeadAnimation.cs" />
     <Compile Include="Assets\_Scripts\MenuScripts\MainMenuControls.cs" />
-    <Compile Include="Assets\_Scripts\MrBatBehavior.cs" />
-    <Compile Include="Assets\_Scripts\PlayerAttacks.cs" />
-    <Compile Include="Assets\_Scripts\PlayerController.cs" />
-    <Compile Include="Assets\_Scripts\PlayerEnergyBars.cs" />
+    <Compile Include="Assets\_Scripts\OtherScripts\ExitLevel.cs" />
+    <Compile Include="Assets\_Scripts\PlayerScripts\GroundCheck.cs" />
+    <Compile Include="Assets\_Scripts\PlayerScripts\HitboxBehavior.cs" />
+    <Compile Include="Assets\_Scripts\PlayerScripts\Pillar.cs" />
+    <Compile Include="Assets\_Scripts\PlayerScripts\PlayerAttacks.cs" />
+    <Compile Include="Assets\_Scripts\PlayerScripts\PlayerController.cs" />
+    <Compile Include="Assets\_Scripts\PlayerScripts\PlayerEnergyBars.cs" />
+    <Compile Include="Assets\_Scripts\PlayerScripts\PlayerSliders.cs" />
     <Compile Include="Assets\_Scripts\PlayerScripts\Projectile.cs" />
-    <Compile Include="Assets\_Scripts\PlayerSliders.cs" />
-    <Compile Include="Assets\_Scripts\TrainingDummyBehavior.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\CameraControls.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\IcoBumpin.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Misc\HueCube.cs" />

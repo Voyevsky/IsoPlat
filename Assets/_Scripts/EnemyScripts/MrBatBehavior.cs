@@ -21,7 +21,7 @@ public class MrBatBehavior : MonoBehaviour
     private Collider col;
     private Vector3 startingPosition;
 
-    private int playerInteractionState = 1; // 0 - go to starting position, 1 - follow player, 2 - stop and shoot
+    private int playerInteractionState = 1; // 1 - go to starting position, 2 - follow player, 3 - stop and shoot
 
     [SerializeField] private GameObject player;
     void Start()
@@ -37,17 +37,18 @@ public class MrBatBehavior : MonoBehaviour
 
         if (alive)
         {
-            if (playerInteractionState == 0)
+            if (playerInteractionState == 1)
             {
                 GoTowardsPoint(startingPosition);
+                //Debug.Log("ass");
             }
 
-            if (playerInteractionState == 1)
+            if (playerInteractionState == 2)
             {
                 GoTowardsPoint(player.transform.position);
             }
 
-            if (playerInteractionState == 2)
+            if (playerInteractionState == 3)
             {
                 Shoot();
             }
@@ -107,6 +108,7 @@ public class MrBatBehavior : MonoBehaviour
         Debug.Log("Bat is kill. Not big soup rice.");
         col.enabled = false;
         alive = false;
+        Invoke("RemoveEvidence", 5);
     }
 
     void FakeFriction()
@@ -117,6 +119,11 @@ public class MrBatBehavior : MonoBehaviour
         fakeFriction.x *= 0.9f;
 
         mrBatRB.velocity = fakeFriction;
+    }
+
+    void RemoveEvidence()
+    {
+        Destroy(gameObject);
     }
 
     #endregion
