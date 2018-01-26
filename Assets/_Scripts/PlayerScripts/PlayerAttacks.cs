@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAttacks : MonoBehaviour
 {
-
+    private PlayerController player;
     public Collider basicAttackHitbox;
     public Collider specialAttackHitbox;
 
@@ -23,10 +23,13 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField] private GameObject fireball;
     [SerializeField] private GameObject pillar;
     [SerializeField] private GameObject pillarSpawnPoint;
+    [SerializeField] private GameObject AoEPrefab;
 
     [SerializeField] private GameObject UIFireball;
     [SerializeField] private GameObject UIPillar;
     [SerializeField] private GameObject UIAoE;
+
+    private Vector3 AoECorrection = new Vector3(0f, -0.6f, 0f);
 
     //[SerializeField] private GameObject player;
     //[SerializeField] private Animator playerAnim;
@@ -37,6 +40,7 @@ public class PlayerAttacks : MonoBehaviour
 
     void Start()
     {
+        player = gameObject.GetComponentInParent<PlayerController>();
         basicAttackHitbox.enabled = false;
         specialAttackHitbox.enabled = false;
 
@@ -161,7 +165,7 @@ public class PlayerAttacks : MonoBehaviour
                 Pillar();
                 break;
             case 2:
-                Debug.Log("AoE!");
+                AoE();
                 break;
             default:
                 Fireball();
@@ -194,9 +198,13 @@ public class PlayerAttacks : MonoBehaviour
 
     void AoE()
     {
-        if (gameObject.GetComponent<PlayerEnergyBars>().currentMana >= aoeCost)
+        if (gameObject.GetComponent<PlayerEnergyBars>().currentMana >= aoeCost && player.grounded)
         {
             gameObject.GetComponent<PlayerEnergyBars>().currentMana -= aoeCost;
+
+            var AoEMagic = Instantiate(AoEPrefab);
+            AoEMagic.transform.position = transform.position;
+            AoEMagic.transform.position = AoEMagic.transform.position + AoECorrection;
         }
     }
 

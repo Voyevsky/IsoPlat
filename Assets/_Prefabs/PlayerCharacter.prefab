@@ -552,15 +552,14 @@ MonoBehaviour:
   fireballCost: 30
   pillarCost: 40
   aoeCost: 70
-  isAttacking: 0
   isPerformingSpecial: 0
   fireball: {fileID: 1244559291746264, guid: 065f4efd5776dca499107fbf3a2fb021, type: 2}
   pillar: {fileID: 1681339627964226, guid: 97afffbe85e281d40a062fe7f286ce73, type: 2}
   pillarSpawnPoint: {fileID: 1524097418055104}
+  AoEPrefab: {fileID: 1414558420615680, guid: 8e7968a93a63b6a49b37c26dac7853f4, type: 2}
   UIFireball: {fileID: 0}
   UIPillar: {fileID: 0}
   UIAoE: {fileID: 0}
-  player: {fileID: 0}
 --- !u!114 &114551555346158010
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -241,7 +241,9 @@
     <Compile Include="Assets\_Scripts\EnemyScripts\TrainingDummyBehavior.cs" />
     <Compile Include="Assets\_Scripts\MenuScripts\HeadAnimation.cs" />
     <Compile Include="Assets\_Scripts\MenuScripts\MainMenuControls.cs" />
+    <Compile Include="Assets\_Scripts\OtherScripts\EvilField.cs" />
     <Compile Include="Assets\_Scripts\OtherScripts\ExitLevel.cs" />
+    <Compile Include="Assets\_Scripts\PlayerScripts\AoEBehavior.cs" />
     <Compile Include="Assets\_Scripts\PlayerScripts\GroundCheck.cs" />
     <Compile Include="Assets\_Scripts\PlayerScripts\HitboxBehavior.cs" />
     <Compile Include="Assets\_Scripts\PlayerScripts\Pillar.cs" />

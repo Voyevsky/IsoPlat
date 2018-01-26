@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerEnergyBars : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class PlayerEnergyBars : MonoBehaviour
     public Slider energyBar;
     public Slider healthBar;
     public Slider manaBar;
+
+    [SerializeField] private GameObject UIDeathScreen;
+    [SerializeField] private string levelToLoad;
 
     void Start()
     {
@@ -44,6 +48,7 @@ public class PlayerEnergyBars : MonoBehaviour
     {
         Regeneration();
         SlidersPercentage();
+        Death();
     }
 
     #region Functions
@@ -72,6 +77,24 @@ public class PlayerEnergyBars : MonoBehaviour
         energyBar.value = energyPercent;
         healthBar.value = healthPercent;
         manaBar.value = manaPercent;
+    }
+    void Death()
+    {
+        if (currentHealth <= 0 && PlayerController.isAlive)
+        {
+            PlayerController.isAlive = false;
+            Debug.Log("You are dead. Not big suprise.");
+            Invoke("DeathScreen", 1.5f);
+        }
+    }
+    void DeathScreen()
+    {
+        UIDeathScreen.SetActive(true);
+        Invoke("LoadMenu", 3);
+    }
+    void LoadMenu()
+    {
+        SceneManager.LoadScene(levelToLoad);
     }
     #endregion
 

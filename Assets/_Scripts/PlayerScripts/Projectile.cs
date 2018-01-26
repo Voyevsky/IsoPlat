@@ -8,12 +8,13 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float life = 2.0f;
 
     private Vector3 projectileDirection;
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameObject hitBox;
+
+    public PlayerController player;
 
     void Awake()
     {
-        projectileDirection = hitBox.transform.position - player.transform.position;
+        player = gameObject.GetComponentInParent<PlayerController>();
+        projectileDirection = player.direction;
         Debug.Log(projectileDirection);
     }
     void Update()

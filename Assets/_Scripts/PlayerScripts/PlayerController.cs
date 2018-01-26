@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
 	void Start ()
     {
+        isAlive = true;
         rb = gameObject.GetComponent<Rigidbody>();
         trail = gameObject.GetComponent<TrailRenderer>();
         playerAnim = gameObject.GetComponentInChildren<Animator>();
@@ -49,6 +50,10 @@ public class PlayerController : MonoBehaviour
             Dashing();
             Jumping();
             Animations();
+        }
+        else
+        {
+            playerAnim.SetBool("isAlive", isAlive);
         }
     }
     #region Movement functions
