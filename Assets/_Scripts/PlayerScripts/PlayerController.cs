@@ -140,6 +140,7 @@ public class PlayerController : MonoBehaviour
     void Animations()
     {
         playerAnim.SetBool("isMoving", isMoving);
+        playerAnim.SetBool("isAttacking", PlayerAttacks.isAttacking);
     }
     void TrailFade()
     {

@@ -16,7 +16,7 @@ public class PlayerAttacks : MonoBehaviour
     public float pillarCost = 40;
     public float aoeCost = 70;
 
-    public bool isAttacking = false;
+    public static bool isAttacking = false;
     public bool isPerformingSpecial = false;
     private float attackTimePassed = 0f;
 
@@ -29,7 +29,7 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField] private GameObject UIAoE;
 
     //[SerializeField] private GameObject player;
-    [SerializeField] private Animator playerAnim;
+    //[SerializeField] private Animator playerAnim;
 
     private int spellId = 0;
 

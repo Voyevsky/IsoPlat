@@ -93,6 +93,11 @@ public class MrBatBehavior : MonoBehaviour
     {
         if(attackTimePassed <= 0.0f)
         {
+            /*
+            -create a boolet
+            -get a vector between bat and player
+            -use vector as direction
+            */
             Debug.Log("Pow!");
             attackTimePassed = attackCooldown;
         }
@@ -105,7 +110,6 @@ public class MrBatBehavior : MonoBehaviour
 
     void Death()
     {
-        Debug.Log("Bat is kill. Not big soup rice.");
         col.enabled = false;
         alive = false;
         Invoke("RemoveEvidence", 5);
